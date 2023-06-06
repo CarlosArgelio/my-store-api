@@ -8,42 +8,35 @@ const service = new ProductsServices();
 router.get('/', (req, res) => {
   const products = service.find();
   res.json(products);
-})
+});
 
 router.get('/filter', (req, res) => {
   res.send('I am filter')
-})
+});
 
 router.get('/:id', (req, res) => {
   const { id } = req.params;
   const product = service.findOne(id);
   res.status(200).json(product)
-})
+});
 
 router.post('/', (req, res) => {
   const body = req.body;
-  res.status(201).json({
-    message: 'created product',
-    data: body
-  });
-})
+  const newProduct = service.create(body);
+  res.status(201).json(newProduct);
+});
 
 router.patch('/:id', (req, res) => {
   const { id } = req.params;
   const body = req.body;
-  res.json({
-    message: 'Update product',
-    data: body,
-    id
-  });
-})
+  const product = service.update(id, body);
+  res.status(200).json(product);
+});
 
 router.delete('/:id', (req, res) => {
   const { id } = req.params;
-  res.json({
-    message: 'Delete product',
-    id
-  });
-})
+  const product = service.delete(id);
+  res.json(product);
+});
 
 module.exports = router;
