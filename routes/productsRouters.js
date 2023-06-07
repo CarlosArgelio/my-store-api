@@ -14,10 +14,14 @@ router.get('/filter', (req, res) => {
   res.send('I am filter')
 });
 
-router.get('/:id', async (req, res) => {
-  const { id } = req.params;
-  const product = await service.findOne(id);
-  res.status(200).json(product)
+router.get('/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const product = await service.findOne(id);
+    res.status(200).json(product)
+  } catch (error) {
+    next(error);
+  }
 });
 
 router.post('/', async (req, res) => {
