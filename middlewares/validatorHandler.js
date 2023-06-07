@@ -3,7 +3,7 @@ const boom = require('@hapi/boom')
 function validatorHandler (Dtos, property) {
   return (req, res, next) => {
     const data = req[property];
-    const { error } = Dtos.validate(data);
+    const { error } = Dtos.validate(data, { abortEarly: false });
     if (error) {
       next(boom.badRequest(error));
     } else {
