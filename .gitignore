@@ -219,4 +219,8 @@ $RECYCLE.BIN/
 
 package-lock.json
 
+#Docker
+
+postgres_data
+
 # End of https://www.toptal.com/developers/gitignore/api/node,linux,windows,macos
