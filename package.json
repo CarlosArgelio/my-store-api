@@ -16,7 +16,8 @@
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
     "nodemon": "^2.0.22",
-    "prettier": "^2.8.8"
+    "prettier": "^2.8.8",
+    "sequelize-cli": "^6.6.1"
   },
   "dependencies": {
     "@faker-js/faker": "^8.0.2",
@@ -26,6 +27,7 @@
     "express": "^4.18.2",
     "heroku": "^8.1.7",
     "joi": "^17.9.2",
+    "mysql2": "^3.3.5",
     "pg": "^8.11.0",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.32.0"
