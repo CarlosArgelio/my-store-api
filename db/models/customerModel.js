@@ -29,9 +29,11 @@ const customerSchema = {
     type: DataTypes.DATE,
     field: 'created_at',
     defaultValue: Sequelize.NOW
-  },userId: {
+  },
+  userId: {
     allowNull: false,
     type: DataTypes.INTEGER,
+    unique: true,
     field: 'user_id',
     references: {
       model: USER_TABLE,
