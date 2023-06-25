@@ -14,7 +14,7 @@ const productSchema = {
   },
   name: {
     allowNul: false,
-    type: DataTypes.INTEGER
+    type: DataTypes.STRING
   },
   image: {
     allowNul: false,
