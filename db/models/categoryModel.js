@@ -12,7 +12,7 @@ const categorySchema = {
   name: {
     allowNul: false,
     unique: true,
-    type: DataTypes.INTEGER
+    type: DataTypes.STRING
   },
   image: {
     allowNul: false,
