@@ -6,8 +6,8 @@ const { Product, productSchema } = require('./productModel');
 function setUpModels(sequelize) {
   User.init(UserSchema, User.config(sequelize));
   Customer.init(customerSchema, Customer.config(sequelize));
-  Category.init(categorySchema, User.config(sequelize));
-  Product.init(productSchema, Customer.config(sequelize));
+  Category.init(categorySchema, Category.config(sequelize));
+  Product.init(productSchema, Product.config(sequelize));
 
   User.associate(sequelize.models);
   Customer.associate(sequelize.models);
