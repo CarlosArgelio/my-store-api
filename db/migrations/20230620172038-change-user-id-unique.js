@@ -12,7 +12,7 @@ module.exports = {
       unique: true
     });
   },
-
+}
 //   async down (queryInterface) {
 //     // await queryInterface.dropTable(CUSTOMER_TABLE);
 //   }
