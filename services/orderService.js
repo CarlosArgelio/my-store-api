@@ -12,6 +12,11 @@ class OrderService {
     return newOrder;
   }
 
+  async addItem(data) {
+    const new_item = await models.OrderProduct.create(data);
+    return new_item;
+  }
+
   async find() {
     return [];
   }
@@ -22,7 +27,8 @@ class OrderService {
         {
           association: 'customer',
           include: ['user']
-        }
+        },
+        'items'
       ]
     });
     return order;
