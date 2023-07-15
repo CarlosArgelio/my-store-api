@@ -2,15 +2,24 @@ const express = require('express');
 
 const ProductsServices = require('./../services/productServices')
 const validatorHandler = require('./../middlewares/validatorHandler')
-const { createProductDtos, updateProductDtos, getProductDtos } = require('./../Dtos/productDtos')
+const { createProductDtos, updateProductDtos, getProductDtos, queryProductDtos } = require('./../Dtos/productDtos')
 
 const router = express.Router();
 const service = new ProductsServices();
 
-router.get('/', async (req, res) => {
-  const products = await service.find();
-  res.json(products);
-});
+router.get('/',
+  validatorHandler(queryProductDtos, 'query'),
+  async (req, res) => {
+    try {
+      const products = await service.find(req.query);
+      res.json(products);
+    } catch (error) {
+      res.status(404).json({
+        message: error.message
+      });
+    }
+  }
+);
 
 router.get('/filter', (req, res) => {
   res.send('I am filter')
