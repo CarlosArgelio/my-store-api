@@ -32,7 +32,8 @@ const getProductDtos = Joi.object({
 
 const queryProductDtos = Joi.object({
   limit,
-  offset
+  offset,
+  price
 });
 
 module.exports = { createProductDtos, updateProductDtos, getProductDtos, queryProductDtos }
