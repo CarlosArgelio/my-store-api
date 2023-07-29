@@ -5,6 +5,7 @@ const UserService = require('./userService');
 const nodemailer = require("nodemailer");
 const service = new UserService();
 const { config } = require('./../config/config');
+const contructMails  = require('./../utils/emails')
 
 class AuthService {
 
@@ -14,6 +15,16 @@ class AuthService {
       throw boom.unauthorized();
     }
     return user
+  }
+
+  generateToken(payload, expireIn) {
+    if (expireIn) {
+      const token = jwt.sign(payload, config.jwt_secret, {expiresIn: expireIn});
+      return token
+    } else {
+      const token = jwt.sign(payload, config.jwt_secret);
+      return token
+    }
   }
 
   async getUser(email, password) {
@@ -31,15 +42,29 @@ class AuthService {
       sub: user.id,
       role: user.role
     }
-    const token = jwt.sign(payload, config.jwt_secret);
+    const token = this.generateToken(payload, '15min')
     return {
       user,
       token
     };
   }
 
-  async sendMail(email) {
+  async sendRecovery(email) {
     const user = await this.findOneUser(email);
+
+    const payload = { sub: user.id }
+    const token = this.generateToken(payload, '15min')
+
+    const link = `http://myfrontend.com/recovery?token=${token}`;
+    await service.update(user.id, {recoveryToken: token})
+
+    const mail = contructMails(config.sender, config.sender, "Email para recuperar contrasena",
+    "Ingresa a recovery password", `<b>Ingresa a este link => ${link}</b>`);
+    const rta = await this.sendMail(mail);
+    return rta;
+  }
+
+  async sendMail(infoEmail) {
 
     const transporter = nodemailer.createTransport({
       host: config.host_smtp ,
@@ -50,13 +75,7 @@ class AuthService {
           pass: config.password_email
       }
     });
-    await transporter.sendMail({
-      from: config.sender,
-      to: `${user.email}`,
-      subject: "Hello ✔",
-      text: "Hello world?",
-      html: "<b>Hello world?</b>",
-    });
+    await transporter.sendMail(infoEmail);
     return { message: 'mail sent' };
   }
 }
