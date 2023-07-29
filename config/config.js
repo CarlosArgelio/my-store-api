@@ -12,7 +12,8 @@ const config = {
   jwt_secret: process.env.JWT_SECRET,
   sender: process.env.SENDER,
   to: process.env.TO,
-  password_email: process.env.PASSWORD_EMAIL
+  password_email: process.env.PASSWORD_EMAIL,
+  host_smtp: process.env.HOST_SMTP
 }
 
 module.exports = { config };
