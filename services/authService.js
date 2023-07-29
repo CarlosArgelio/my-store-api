@@ -39,7 +39,7 @@ class AuthService {
   }
 
   async sendMail(email) {
-    const user = this.findOneUser(email);
+    const user = await this.findOneUser(email);
 
     const transporter = nodemailer.createTransport({
       host: config.host_smtp ,
